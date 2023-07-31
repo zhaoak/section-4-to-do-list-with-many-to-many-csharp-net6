@@ -81,5 +81,31 @@ namespace ToDoList.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddTag(int id)
+    {
+      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      ViewBag.TagId = new SelectList(_db.Tags, "TagId", "Title");
+      return View(thisItem);
+    }
+
+    [HttpPost]
+    public ActionResult AddTag(Item item, int tagId)
+    {
+      // check if item-tag relationship already exists
+      #nullable enable
+      ItemTag? joinEntity = _db.ItemTags.FirstOrDefault(join => (join.TagId == tagId && join.ItemId == item.ItemId));
+      #nullable disable
+
+      // if relationship doesn't exist AND at least one tag exists
+      if (joinEntity == null && tagId != 0)
+      {
+        // then create and add the new relationship
+        _db.ItemTags.Add(new ItemTag() { TagId = tagId, ItemId = item.ItemId });
+        _db.SaveChanges();
+      }
+      // then redirect to the details page
+      return RedirectToAction("Details", new { id = item.ItemId });
+    }
   }
 }
