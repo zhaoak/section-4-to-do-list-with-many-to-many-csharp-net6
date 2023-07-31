@@ -43,6 +43,20 @@ public class TagsController : Controller
     return RedirectToAction("Index");
   }
 
+  public ActionResult Edit(int id)
+  {
+    Tag thisTag = _db.Tags.FirstOrDefault(tags => tags.TagId == id);
+    return View(thisTag);
+  }
+
+  [HttpPost]
+  public ActionResult Edit(Tag tag)
+  {
+    _db.Tags.Update(tag);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
+  }
+
   public ActionResult AddItem(int id)
   {
     Tag thisTag = _db.Tags.FirstOrDefault(tags => tags.TagId == id);
