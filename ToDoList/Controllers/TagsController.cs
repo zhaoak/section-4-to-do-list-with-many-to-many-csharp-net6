@@ -93,4 +93,13 @@ public class TagsController : Controller
     }
     return RedirectToAction("Details", new { id = tag.TagId });
   }
+
+  [HttpPost]
+  public ActionResult DeleteJoin(int joinId)
+  {
+    ItemTag joinEntry = _db.ItemTags.FirstOrDefault(entry => entry.ItemTagId == joinId);
+    _db.ItemTags.Remove(joinEntry);
+    _db.SaveChanges();
+    return RedirectToAction("Index");
+  }
 }
