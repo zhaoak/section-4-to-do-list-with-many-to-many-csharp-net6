@@ -17,11 +17,11 @@ else
     {
       @if (item.Completed == false)
       {
-        <li>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name</li>
+        <li>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name | Due: @item.DueDate.ToString()</li>
       }
       else
       {
-        <li><s>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name</s></li>
+        <li><s>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name | Due: @item.DueDate.ToString()</s></li>
       }
     }
   </ul>
