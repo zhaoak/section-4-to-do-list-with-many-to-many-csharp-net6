@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace ToDoList.Controllers
@@ -31,7 +32,7 @@ namespace ToDoList.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Item item)
+    public ActionResult Create(Item item, string userDueDate)
     {
       if (!ModelState.IsValid)
       {
@@ -42,6 +43,10 @@ namespace ToDoList.Controllers
       else
       {
         // if valid
+        // parses date string, may fail given faulty user input
+        // or an unexpected locale-specific way of writing dates
+        // but this is just practice, so it's okay for now
+        item.DueDate = DateTime.Parse(userDueDate);
         _db.Items.Add(item);
         _db.SaveChanges();
         return RedirectToAction("Index");

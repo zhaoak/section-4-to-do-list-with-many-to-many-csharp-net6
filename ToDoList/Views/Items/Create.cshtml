@@ -16,7 +16,10 @@
 
   @Html.LabelFor(model => model.Category)
   @Html.DropDownList("CategoryId")
-
+  
+  <label>Due date:
+    <input type="date" step="1" name="userDueDate" required />
+  </label>
   <input type="submit" value="Add new item" class="btn btn-default" />
 }
 <p>@Html.ActionLink("Show all items", "Index")</p>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,6 +7,7 @@ namespace ToDoList.Models
   public class Item
   {
     public bool Completed { get; set; } = false;
+    public DateTime DueDate { get; set; }
     public int ItemId { get; set; }
     [Required(ErrorMessage = "Items must have a description.")]
     public string Description { get; set; }
