@@ -10,6 +10,19 @@
 <h3>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)<h3>
 <h3>@Html.DisplayNameFor(model => model.Category): @Html.DisplayFor(model => model.Category.Name)<h3>
 
+@using(Html.BeginForm("MarkCompleted", "Items"))
+{
+  @if (@Model.Completed == false)
+  {
+    @Html.Hidden("itemId", @Model.ItemId)
+    <input type="submit" value="Mark Completed"/>
+  }
+  else
+  {
+    <h3><strong>Completed!</strong></h3>
+  }
+}
+
 @if(@Model.JoinEntities.Count == 0)
 {
   <p>This item does not have any tags yet!</p>

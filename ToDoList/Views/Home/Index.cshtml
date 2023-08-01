@@ -28,7 +28,14 @@
 <ul>
   @foreach (Item item in Model["items"])
   {
-    <li>@Html.ActionLink(@item.Description, "Details", "Items", new { id = @item.ItemId })</li>
+      @if (item.Completed == false)
+      {
+        <li>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</li>
+      }
+      else
+      {
+        <li><s>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</s></li>
+      }
   }
 </ul>
 
