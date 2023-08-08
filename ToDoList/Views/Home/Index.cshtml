@@ -20,24 +20,31 @@
   }
 </ul>
 
-<h4>Items</h4>
-@if (Model["items"].Length == 0)
+<h4>Items for @User.Identity.Name</h4>
+@if (User.Identity.IsAuthenticated)
 {
-  <p>No items.</p>
-}
-<ul>
-  @foreach (Item item in Model["items"])
+  @if (Model["items"].Length == 0)
   {
-      @if (item.Completed == false)
-      {
-        <li>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</li>
-      }
-      else
-      {
-        <li><s>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</s></li>
-      }
+    <p>No items.</p>
   }
-</ul>
+  <ul>
+    @foreach (Item item in Model["items"])
+    {
+        @if (item.Completed == false)
+        {
+          <li>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</li>
+        }
+        else
+        {
+          <li><s>@Html.ActionLink($"{item.Description}", "Details", "Items", new { id = item.ItemId })</s></li>
+        }
+    }
+  </ul>
+}
+else
+{
+<p><em>Not logged in.</em></p>
+}
 
 <hr>
 

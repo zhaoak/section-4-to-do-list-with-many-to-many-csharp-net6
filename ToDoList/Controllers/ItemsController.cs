@@ -60,6 +60,7 @@ namespace ToDoList.Controllers
         string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
         item.DueDate = DateTime.Parse(userDueDate);
+        item.User = currentUser;
         _db.Items.Add(item);
         _db.SaveChanges();
         return RedirectToAction("Index");
